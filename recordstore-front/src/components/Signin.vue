@@ -6,11 +6,11 @@
         <div class="text-red" v-if="error">{{ error }}</div>
 
         <div class="mb-6">
-          <label for= "email" class="label"> E-mail Address</label>
+          <label for="email" class="label">E-mail Address</label>
           <input type="email" v-model="email" class="input" id="email" placeholder="andy@web-crunch.com">
         </div>
         <div class="mb-6">
-          <label for= "password" class="label">Password</label>
+          <label for="password" class="label">Password</label>
           <input type="password" v-model="password" class="input" id="password" placeholder="Password">
         </div>
         <button type="submit" class="font-sans font-bold px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-full py-4 text-white items-center justify-center">Sign In</button>
@@ -24,28 +24,28 @@
 <script>
   export default {
     name: 'Signin',
-    data() {
+    data () {
       return {
         email: '',
         password: '',
         error: ''
       }
     },
-    created() {
+    created () {
       this.checkSignedIn()
     },
-    updated() {
+    updated () {
       this.checkSignedIn()
     },
     methods: {
       signin () {
-        this.$http.plain.post('/signin', {email: this.email, password: this.password })
+        this.$http.plain.post('/signin', { email: this.email, password: this.password })
           .then(response => this.signinSuccessful(response))
-          .catch(error => this.sininFailed(error))
+          .catch(error => this.signinFailed(error))
       },
       signinSuccessful (response) {
         if (!response.data.csrf) {
-          this.sigininFailed(response)
+          this.signinFailed(response)
           return
         }
         localStorage.csrf = response.data.csrf
@@ -65,5 +65,4 @@
       }
     }
   }
-
 </script>
