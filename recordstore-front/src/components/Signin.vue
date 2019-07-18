@@ -22,47 +22,48 @@
 </template>
 
 <script>
-export default {
-  name: 'Signin',
-  data () {
-    return {
-      email: '',
-      password: '',
-      error: ''
-    }
-  },
-  created () {
-    this.checkSignedIn()
-  },
-  updated () {
-    this.checkSignedIn()
-  },
-  methods: {
-    signin () {
-      this.$http.plain.post('/signin', { email: this.email, password: this.password })
-        .then(response => this.signinSuccessful(response))
-        .catch(error => this.signinFailed(error))
-    },
-    signinSuccessful (response) {
-      if (!response.data.csrf) {
-        this.signinFailed(response)
-        return
+  export default {
+    name: 'Signin',
+    data() {
+      return {
+        email: '',
+        password: '',
+        error: ''
       }
-      localStorage.csrf = response.data.csrf
-      localStorage.signedIn = true
-      this.error = ''
-      this.$router.replace('/records')
     },
-    signinFailed (error) {
-      this.error = (error.response && error.response.data && error.response.data.error) || ''
-      delete localStorage.csrf
-      delete localStorage.signedIn
+    created() {
+      this.checkSignedIn()
     },
-    checkSignedIn () {
-      if (localStorage.signedIn) {
+    updated() {
+      this.checkSignedIn()
+    },
+    methods: {
+      signin () {
+        this.$http.plain.post('/signin', {email: this.email, password: this.password })
+          .then(response => this.signinSuccessful(response))
+          .catch(error => this.sininFailed(error))
+      },
+      signinSuccessful (response) {
+        if (!response.data.csrf) {
+          this.sigininFailed(response)
+          return
+        }
+        localStorage.csrf = response.data.csrf
+        localStorage.signedIn = true
+        this.error = ''
         this.$router.replace('/records')
+      },
+      signinFailed (error) {
+        this.error = (error.response && error.response.data && error.response.data.error) || ''
+        delete localStorage.csrf
+        delete localStorage.signedIn
+      },
+      checkSignedIn () {
+        if (localStorage.signedIn) {
+          this.$router.replace('/records')
+        }
       }
     }
   }
-}
+
 </script>
