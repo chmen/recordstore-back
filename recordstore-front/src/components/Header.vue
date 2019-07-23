@@ -16,6 +16,7 @@
     </div>
   </header>
 </template>
+
 <script>
 export default {
   name: 'Header',
@@ -23,7 +24,7 @@ export default {
     this.signedIn()
   },
   methods: {
-    serError (error, text) {
+    setError (error, text) {
       this.error = (error.response && error.response.data && error.response.data.error) || text
     },
     signedIn () {
@@ -33,7 +34,7 @@ export default {
       this.$http.secured.delete('/signin')
         .then(response => {
           delete localStorage.csrf
-          delete localStorage.signed
+          delete localStorage.signedIn
           this.$router.replace('/')
         })
         .catch(error => this.setError(error, 'Cannot sign out'))
