@@ -16,3 +16,28 @@
     </div>
   </header>
 </template>
+<script>
+export default {
+  name: 'Header',
+  created () {
+    this.signedIn()
+  },
+  methods: {
+    serError (error, text) {
+      this.error = (error.response && error.response.data && error.response.data.error) || text
+    },
+    signedIn () {
+      return localStorage.signedIn
+    },
+    signOut () {
+      this.$http.secured.delete('/signin')
+        .then(response => {
+          delete localStorage.csrf
+          delete localStorage.signed
+          this.$router.replace('/')
+        })
+        .catch(error => this.setError(error, 'Cannot sign out'))
+    }
+  }
+}
+</script>
