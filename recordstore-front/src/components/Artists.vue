@@ -55,11 +55,11 @@ export default {
     }
   },
   created () {
-    if(!localStorage.signedIn) {
+    if (!localStorage.signedIn) {
       this.$router.replace('/')
     } else {
       this.$http.secured.get('/api/v1/artists')
-        .then(reponse => { this.artists = response.data })
+        .then(response => { this.artists = response.data })
         .catch(error => this.setError(error, 'Something went wrong'))
     }
   },
@@ -72,7 +72,7 @@ export default {
       if (!value) {
         return
       }
-      this.$http.secured.post('api/v1/artists', { artist: { name: this.newArtist.name }})
+      this.$http.secured.post('/api/v1/artists/', { artist: { name: this.newArtist.name } })
 
         .then(response => {
           this.artists.push(response.data)
@@ -81,8 +81,8 @@ export default {
         .catch(error => this.setError(error, 'Cannot create artist'))
     },
     removeArtist (artist) {
-      this.$http.secured.delete('api/v1/artists/${artist.id')
-        .then(reponse => {
+      this.$http.secured.delete(`/api/v1/artists/${artist.id}`)
+        .then(response => {
           this.artists.splice(this.artists.indexOf(artist), 1)
         })
         .catch(error => this.setError(error, 'Cannot delete artist'))
@@ -90,12 +90,11 @@ export default {
     editArtist (artist) {
       this.editedArtist = artist
     },
-    updatedArtist (artist) {
+    updateArtist (artist) {
       this.editedArtist = ''
-      this.$http.secured.patch('/api/v1/artists/${artist.id}', { artist { title: artist.name }})
+      this.$http.secured.patch(`/api/v1/artists/${artist.id}`, { artist: { title: artist.name } })
         .catch(error => this.setError(error, 'Cannot update artist'))
     }
   }
-
 }
 </script>
