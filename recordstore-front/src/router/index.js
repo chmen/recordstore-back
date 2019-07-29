@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Signin from '@/components/Signin'
 import Signup from '@/components/Signup'
+import Artists from '@/components/Artists'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/signup',
       name: 'Signup',
       component: Signup
+    },
+    {
+      path: '/artistst',
+      name: 'Artists',
+      component: Artists
     }
   ]
 })
