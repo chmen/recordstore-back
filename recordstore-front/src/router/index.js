@@ -19,7 +19,7 @@ export default new Router({
       component: Signup
     },
     {
-      path: '/artistst',
+      path: '/artists',
       name: 'Artists',
       component: Artists
     }
