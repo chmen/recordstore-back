@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Signin from '@/components/Signin'
 import Signup from '@/components/Signup'
 import Artists from '@/components/Artists'
+import Records from '@/components/Records'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/artists',
       name: 'Artists',
       component: Artists
+    },
+    {
+      path: '/records',
+      name: 'Records',
+      component: Records
     }
   ]
 })
