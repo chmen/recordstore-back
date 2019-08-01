@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :artists do
         resources :records
       end
+      resources :records
     end
   end
 
