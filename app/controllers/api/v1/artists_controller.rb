@@ -21,7 +21,7 @@ module Api
         @artist = Artist.new(artist_params)
 
         if @artist.save
-          render json: @artist, status: :created, location: @artist
+          render json: @artist, status: :created, location: api_v1_artist_url(@artist)
         else
           render json: @artist.errors, status: :unprocessable_entity
         end
@@ -49,7 +49,7 @@ module Api
 
         # Only allow a trusted parameter "white list" through.
         def artist_params
-          params.require(:artist).permit(:name)
+          params.fetch(:artist, ).permit(:name)
         end
     end
   end
